@@ -24,10 +24,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Configurar Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 20
           cache: npm
@@ -59,11 +59,15 @@ jobs:
       - name: Generar 404.html (fallback SPA)
         run: cp dist/index.html dist/404.html
 
+      # `enablement: true` activa GitHub Pages automáticamente si aún no lo está,
+      # evitando el error "Get Pages site failed / Not Found".
       - name: Configurar Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
+        with:
+          enablement: true
 
       - name: Subir artefacto
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist
 
@@ -76,4 +80,4 @@ jobs:
     steps:
       - name: Desplegar en GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
