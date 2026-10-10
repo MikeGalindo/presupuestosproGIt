@@ -12,6 +12,10 @@ PresupuestosPro es una SPA que calcula automáticamente base imponible, IVA (16 
 
 > **Sin backend real:** los datos viven en el equipo del usuario mediante un mock de backend asíncrono sobre `localStorage`. Sin cuentas, sin nube, sin correo, sin facturación fiscal.
 
+📄 **[Ver un presupuesto de ejemplo](docs/ejemplo-presupuesto.pdf)** generado por la propia aplicación (10 líneas, es-MX/MXN).
+
+![Ejemplo de presupuesto generado con PresupuestosPro](docs/ejemplo-presupuesto.png)
+
 ---
 
 ## Tabla de contenidos
@@ -33,13 +37,14 @@ PresupuestosPro es una SPA que calcula automáticamente base imponible, IVA (16 
 ## Características
 
 - 🧮 **Cálculo automático de impuestos** en aritmética de centavos enteros (sin errores de coma flotante).
-- 📄 **PDF generado en el navegador** con la marca del emisor, datos fiscales y del cliente, número y fechas.
+- 📄 **PDF generado en el navegador** con la marca del emisor, datos fiscales y del cliente, número y fechas. → [ver ejemplo](docs/ejemplo-presupuesto.pdf)
 - 🏷️ **Numeración correlativa** tipo `2026-01`, con reinicio anual y sin reutilizar números eliminados.
 - 👥 **Catálogos** de clientes y servicios (CRUD completo con confirmación).
 - 📝 **Borradores** sin número, editables, que pasan al historial al emitirse como documentos inmutables.
 - 🔄 **Cinco estados** de presupuesto: Borrador, Enviado, Aceptado, Rechazado y Caducado (calculado).
 - 🇲🇽 **Localización es-MX / MXN** en interfaz, formatos y documento.
-
+- 
+**URL del proyecto:** [https://mikegalindo.github.io/presupuestosproGIt/](https://mikegalindo.github.io/presupuestosproGIt/)
 ---
 
 ## Stack tecnológico
@@ -198,15 +203,3 @@ specs/<NNN-feature>/
 
 Autenticación, base de datos remota, multiusuario, envío de correo, facturación fiscal (SAT) y backend real. Estas exclusiones están fijadas en la constitución y cualquier incorporación exige una enmienda explícita.
 
----
-
-## Licencia
-
-Proyecto de portafolio. Añade aquí la licencia que prefieras (por ejemplo, MIT).
-
-<!--
-Sugerencias para publicar en portafolio:
-1. Añade una captura o GIF en la sección de Características.
-2. Publica una demo con `npm run build` en GitHub Pages, Vercel o Netlify.
-3. Enlaza el PDF de ejemplo generado.
--->

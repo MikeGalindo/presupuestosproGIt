@@ -9,7 +9,8 @@
     "build": "tsc --noEmit && tsc --noEmit -p tsconfig.node.json && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "pdf:ejemplo": "vite-node scripts/generar-pdf-ejemplo.ts"
   },
   "dependencies": {
     "@react-pdf/renderer": "^3.4.4",
