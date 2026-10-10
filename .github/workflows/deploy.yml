@@ -1,0 +1,79 @@
+# Despliegue automático de PresupuestosPro en GitHub Pages.
+# Cada push a `main` construye la SPA y la publica.
+
+name: Deploy a GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Permisos necesarios para publicar en Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un despliegue a la vez; cancela los que estén en cola.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Pruebas
+        run: npm test
+
+      # GitHub Pages publica páginas de proyecto en /<repo>/.
+      # Si el repo es <usuario>.github.io, el sitio vive en la raíz "/".
+      - name: Calcular base path
+        id: base
+        run: |
+          if [[ "${{ github.event.repository.name }}" == *.github.io ]]; then
+            echo "base=/" >> "$GITHUB_OUTPUT"
+          else
+            echo "base=/${{ github.event.repository.name }}/" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Compilar
+        run: npm run build
+        env:
+          VITE_BASE: ${{ steps.base.outputs.base }}
+
+      # Fallback SPA: GitHub Pages no tiene redirects, así que copiamos
+      # index.html como 404.html para que las rutas profundas carguen la app.
+      - name: Generar 404.html (fallback SPA)
+        run: cp dist/index.html dist/404.html
+
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Subir artefacto
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Desplegar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,29 @@
+# Dependencias
+node_modules/
+
+# Build
+dist/
+*.local
+
+# Spec-kit: estado local de la maquina (no compartir)
+.specify/feature.json
+.specify/extensions/*/local-config.yml
+
+# Entorno de IA / secretos
+opencode.json
+AGENTS.md
+.env
+.env.*
+!.env.example
+
+# Logs y basura del SO
+*.log
+npm-debug.log*
+coverage/
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/*
+!.vscode/extensions.json
+.idea/
