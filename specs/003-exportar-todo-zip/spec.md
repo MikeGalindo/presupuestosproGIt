@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-10
 
-**Status**: Draft
+**Status**: implementada
 
 **Input**: User description: "Exportar todos mis presupuestos en un .zip. Que el freelancer pueda llevarse TODOS sus presupuestos de una sola vez, en un único archivo comprimido .zip, como copia de seguridad y para archivarlos donde quiera. Alcance: un botón «Exportar todo (.zip)» en un lugar visible de la lista de presupuestos; al pulsarlo se descarga UN único .zip que contiene un PDF por cada presupuesto existente (exactamente el mismo PDF que ya genera la app) y un único archivo de datos con toda la información (presupuestos, catálogo de servicios y perfil del freelancer, logo incluido), pensado para poder restaurar la aplicación en el futuro; funciona con 1 o 200 presupuestos. Reglas: el .zip se llama presupuestospro-copia-AAAA-MM-DD.zip; cada PDF se llama «número + cliente» (p. ej. «2026-001 - Estudio García.pdf»); la exportación es solo lectura; los PDF cuadran al céntimo con los de la app. Fuera de alcance: importar/restaurar (otra spec), exportar a Excel/CSV, copias automáticas y enviar el zip por email o a la nube. Reutilizar la funcionalidad existente para PDF."
 

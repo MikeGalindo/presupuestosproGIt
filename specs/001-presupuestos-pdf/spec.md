@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-08
 
-**Status**: Draft
+**Status**: publicada
 
 **Input**: User description: "PresupuestosPro es una herramienta para que un freelancer cree presupuestos profesionales con su marca y los descargue en PDF para enviárselos a sus clientes, sin pelearse con Excel ni con plantillas. El freelancer administra los catálogos de usuario, servicios y clientes, y es quien genera los presupuestos. Escenarios: (HU1) administro mis datos (nombre, razón social, RFC, contacto, logo) y una lista de servicios con su precio habitual; (HU2) al hacer un presupuesto elijo cliente, añado líneas (de mi lista o escritas a mano, con cantidad y precio) y la herramienta calcula sola base imponible, IVA y, cuando toca, retención de IRPF, y el total; (HU3) descargo el presupuesto en PDF con mi marca y se lo mando yo por email. Requisitos: almacenar datos del usuario; CRUD de clientes; lista de servicios (nombre, precio); generar presupuesto con selección de cliente, líneas y cálculo de impuestos; lista de presupuestos generados; opción de generar PDF. Reglas: los números no se inventan (IVA/ISR calculados); total = base + IVA − retención; numeración automática tipo 2026-01 reiniciando cada año; solo MXN. Casos límite: presupuesto sin líneas no genera PDF y avisa; línea escrita a mano permitida. Fuera de alcance: no es factura ni facturación electrónica; sin cuentas ni contraseñas; nada en la nube (vive en el ordenador); el envío por correo es externo, el sistema no lo hace."
 
