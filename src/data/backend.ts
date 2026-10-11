@@ -3,6 +3,7 @@
 // Ningún consumidor conoce localStorage.
 
 import type {
+  Agregado,
   BorradorInput,
   Cliente,
   ClienteInput,
@@ -102,6 +103,10 @@ export interface Backend {
     eliminar: (id: string) => Promise<void>;
     emitir: (id: string) => Promise<Presupuesto>;
     cambiarEstado: (id: string, estado: EstadoCambiable) => Promise<Presupuesto>;
+  };
+  exportacion: {
+    /** Devuelve una copia fiel del agregado completo persistido. No modifica nada. */
+    obtenerCopia: () => Promise<Agregado>;
   };
 }
 
@@ -429,7 +434,20 @@ export function crearBackend(): Backend {
         });
       },
     },
+
+    exportacion: {
+      async obtenerCopia() {
+        await esperar();
+        // Solo lectura: se devuelve una copia profunda del agregado persistido.
+        return enAlmacenamiento(() => clonarAgregado(leerAgregado()));
+      },
+    },
   };
+}
+
+/** Copia profunda del agregado (los datos ya son serializables a JSON). */
+function clonarAgregado(agregado: Agregado): Agregado {
+  return JSON.parse(JSON.stringify(agregado)) as Agregado;
 }
 
 /** Valida los datos de un borrador (cliente existente si viene, líneas coherentes). */

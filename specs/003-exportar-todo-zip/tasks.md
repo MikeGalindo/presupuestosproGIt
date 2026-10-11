@@ -34,16 +34,16 @@
 
 **⚠️ CRITICAL**: Ninguna historia puede empezar hasta completar esta fase.
 
-- [ ] T002 [P] Implementar CRC-32 (tabla precalculada, polinomio `0xEDB88320`) y la función `crc32(datos: Uint8Array): number` en `src/lib/zip.ts`.
-- [ ] T003 Implementar `crearZip(entradas: EntradaZip[]): Blob` en `src/lib/zip.ts` (método *store*, bit 11 UTF-8, cabeceras locales + directorio central + EOCD). Depende de T002.
-- [ ] T004 [P] Prueba unitaria del escritor en `tests/unit/zip.test.ts`: round-trip (extraer entradas y comparar contenido), CRC por entrada y estructura (firmas `0x04034b50`, `0x02014b50`, `0x06054b50`). Depende de T003.
-- [ ] T005 [P] Implementar `limpiarNombreArchivo(nombre: string): string` y `nombrePdfCopia(presupuesto: Presupuesto): string` en `src/lib/archivos.ts` (sustituir `\ / : * ? " < > |` y de control por `-`, colapsar espacios, recortar; conservar acentos/ñ; formato `«número» - «cliente».pdf`).
-- [ ] T006 [P] Prueba unitaria en `tests/unit/archivos.test.ts`: `Diseño/Web S.L.` → `... - Diseño-Web S.L..pdf`; conserva acentos y espacios; caso sin cliente.
-- [ ] T007 Refactorizar `src/features/pdf/download.ts`: extraer `generarPdfBlob(presupuesto): Promise<Blob>`, reutilizarla en `descargarPdf` y **exportar** `descargarBlob`. (FR-004)
-- [ ] T008 Añadir `exportacion: { obtenerCopia: () => Promise<Agregado> }` a `src/data/backend.ts`: solo lectura, con `esperar()` + `enAlmacenamiento(...)`; devuelve una copia del agregado. (Principio IX)
-- [ ] T009 Exponer `obtenerCopia()` en `src/data/store.tsx` (`StoreContextValue` + `useCallback` + dependencias del `useMemo`).
-- [ ] T010 [P] Prueba unitaria `tests/unit/backend-export.test.ts`: `obtenerCopia()` devuelve el agregado y **no** modifica `localStorage` (solo lectura).
-- [ ] T011 Verificar que las pruebas existentes siguen verdes tras el refactor (`tests/integration/history.test.tsx` continúa mockeando `descargarPdf`).
+- [X] T002 [P] Implementar CRC-32 (tabla precalculada, polinomio `0xEDB88320`) y la función `crc32(datos: Uint8Array): number` en `src/lib/zip.ts`.
+- [X] T003 Implementar `crearZip(entradas: EntradaZip[]): Blob` en `src/lib/zip.ts` (método *store*, bit 11 UTF-8, cabeceras locales + directorio central + EOCD). Depende de T002.
+- [X] T004 [P] Prueba unitaria del escritor en `tests/unit/zip.test.ts`: round-trip (extraer entradas y comparar contenido), CRC por entrada y estructura (firmas `0x04034b50`, `0x02014b50`, `0x06054b50`). Depende de T003.
+- [X] T005 [P] Implementar `limpiarNombreArchivo(nombre: string): string` y `nombrePdfCopia(presupuesto: Presupuesto): string` en `src/lib/archivos.ts` (sustituir `\ / : * ? " < > |` y de control por `-`, colapsar espacios, recortar; conservar acentos/ñ; formato `«número» - «cliente».pdf`).
+- [X] T006 [P] Prueba unitaria en `tests/unit/archivos.test.ts`: `Diseño/Web S.L.` → `... - Diseño-Web S.L..pdf`; conserva acentos y espacios; caso sin cliente.
+- [X] T007 Refactorizar `src/features/pdf/download.ts`: extraer `generarPdfBlob(presupuesto): Promise<Blob>`, reutilizarla en `descargarPdf` y **exportar** `descargarBlob`. (FR-004)
+- [X] T008 Añadir `exportacion: { obtenerCopia: () => Promise<Agregado> }` a `src/data/backend.ts`: solo lectura, con `esperar()` + `enAlmacenamiento(...)`; devuelve una copia del agregado. (Principio IX)
+- [X] T009 Exponer `obtenerCopia()` en `src/data/store.tsx` (`StoreContextValue` + `useCallback` + dependencias del `useMemo`).
+- [X] T010 [P] Prueba unitaria `tests/unit/backend-export.test.ts`: `obtenerCopia()` devuelve el agregado y **no** modifica `localStorage` (solo lectura).
+- [X] T011 Verificar que las pruebas existentes siguen verdes tras el refactor (`tests/integration/history.test.tsx` continúa mockeando `descargarPdf`).
 
 **Checkpoint**: utilidades y costura listas; pueden empezar las historias.
 
@@ -57,10 +57,10 @@
 
 ### Implementation for User Story 1
 
-- [ ] T012 [US1] Crear `crearCopia(agregado: Agregado, exportadoEn: string): CopiaExportada` y el tipo `CopiaExportada` en `src/domain/copia.ts` (campos: `version`, `exportadoEn`, `perfil`, `clientes`, `servicios`, `presupuestos`, `correlativos`). (FR-006, data-model.md)
-- [ ] T013 [US1] Implementar en `src/features/budgets/exportarZip.ts`: `construirZipCopia(presupuestos, copia): Promise<Blob>` (un PDF por emitido con `generarPdfBlob` + `nombrePdfCopia`; entrada `presupuestospro-datos.json` con `crearCopia`; ensambla con `crearZip`) y `nombreZipCopia(): string` (`presupuestospro-copia-${hoyISO()}.zip`). (FR-002…FR-006, FR-017)
-- [ ] T014 [US1] Añadir el botón «Exportar todo (.zip)» en la botonera de `src/features/budgets/HistoryPage.tsx`: `store.obtenerCopia()` → `construirZipCopia(...)` → `descargarBlob(blob, nombreZipCopia())`. (FR-001)
-- [ ] T015 [P] [US1] Prueba de integración `tests/integration/exportar-zip.test.tsx`: descarga **un único** `.zip`, con N PDF `«número - cliente»` (sin borradores) y el archivo de datos; identidad del PDF (mockear `generarPdfBlob`); no altera datos (re-render idéntico).
+- [X] T012 [US1] Crear `crearCopia(agregado: Agregado, exportadoEn: string): CopiaExportada` y el tipo `CopiaExportada` en `src/domain/copia.ts` (campos: `version`, `exportadoEn`, `perfil`, `clientes`, `servicios`, `presupuestos`, `correlativos`). (FR-006, data-model.md)
+- [X] T013 [US1] Implementar en `src/features/budgets/exportarZip.ts`: `construirZipCopia(presupuestos, copia): Promise<Blob>` (un PDF por emitido con `generarPdfBlob` + `nombrePdfCopia`; entrada `presupuestospro-datos.json` con `crearCopia`; ensambla con `crearZip`) y `nombreZipCopia(): string` (`presupuestospro-copia-${hoyISO()}.zip`). (FR-002…FR-006, FR-017)
+- [X] T014 [US1] Añadir el botón «Exportar todo (.zip)» en la botonera de `src/features/budgets/HistoryPage.tsx`: `store.obtenerCopia()` → `construirZipCopia(...)` → `descargarBlob(blob, nombreZipCopia())`. (FR-001)
+- [X] T015 [P] [US1] Prueba de integración `tests/integration/exportar-zip.test.tsx`: descarga **un único** `.zip`, con N PDF `«número - cliente»` (sin borradores) y el archivo de datos; identidad del PDF (mockear `generarPdfBlob`); no altera datos (re-render idéntico).
 
 **Checkpoint**: US1 funcional y verificable de forma independiente (MVP).
 
@@ -74,9 +74,9 @@
 
 ### Implementation for User Story 2
 
-- [ ] T016 [US2] Completar `crearCopia` en `src/domain/copia.ts` para incluir explícitamente `version`, `exportadoEn`, `perfil` (con `logo`), `clientes`, `servicios`, `presupuestos` y `correlativos`. (FR-006)
-- [ ] T017 [P] [US2] Prueba unitaria `tests/unit/copia.test.ts` (completitud): con un agregado de prueba, verifica que la copia conserva logo, clientes, servicios, presupuestos, correlativos, `version` y `exportadoEn`.
-- [ ] T018 [P] [US2] Aserción de integración en `tests/integration/exportar-zip.test.tsx`: el data file JSON parsea y contiene cada sección.
+- [X] T016 [US2] Completar `crearCopia` en `src/domain/copia.ts` para incluir explícitamente `version`, `exportadoEn`, `perfil` (con `logo`), `clientes`, `servicios`, `presupuestos` y `correlativos`. (FR-006)
+- [X] T017 [P] [US2] Prueba unitaria `tests/unit/copia.test.ts` (completitud): con un agregado de prueba, verifica que la copia conserva logo, clientes, servicios, presupuestos, correlativos, `version` y `exportadoEn`.
+- [X] T018 [P] [US2] Aserción de integración en `tests/integration/exportar-zip.test.tsx`: el data file JSON parsea y contiene cada sección.
 
 **Checkpoint**: US1 y US2 funcionan de forma independiente.
 
@@ -90,10 +90,10 @@
 
 ### Implementation for User Story 3
 
-- [ ] T019 [US3] Añadir a `src/features/budgets/HistoryPage.tsx` el estado `exportando` + `progreso { hechos, total }`; deshabilitar el botón durante la operación y mostrar «Generando x de N…» con `role="status"` `aria-live="polite"`. Pasa un callback de progreso a `construirZipCopia`. (FR-009, SC-007)
-- [ ] T020 [US3] Estado vacío en `src/features/budgets/HistoryPage.tsx`: si `emitidos.length === 0`, mostrar aviso claro y **no** descargar ningún `.zip`. (FR-007, SC-005)
-- [ ] T021 [US3] Manejo de fallo en `src/features/budgets/HistoryPage.tsx`: envolver la exportación en `try/catch`; ante error, mostrar mensaje, **abortar** y no descargar; restaurar el botón. (FR-016, SC-011)
-- [ ] T022 [P] [US3] Pruebas de integración en `tests/integration/exportar-zip.test.tsx`: (a) sin emitidos → aviso y 0 descargas; (b) el texto de progreso aparece y el botón queda deshabilitado; (c) si `generarPdfBlob` rechaza → mensaje y 0 descargas.
+- [X] T019 [US3] Añadir a `src/features/budgets/HistoryPage.tsx` el estado `exportando` + `progreso { hechos, total }`; deshabilitar el botón durante la operación y mostrar «Generando x de N…» con `role="status"` `aria-live="polite"`. Pasa un callback de progreso a `construirZipCopia`. (FR-009, SC-007)
+- [X] T020 [US3] Estado vacío en `src/features/budgets/HistoryPage.tsx`: si `emitidos.length === 0`, mostrar aviso claro y **no** descargar ningún `.zip`. (FR-007, SC-005)
+- [X] T021 [US3] Manejo de fallo en `src/features/budgets/HistoryPage.tsx`: envolver la exportación en `try/catch`; ante error, mostrar mensaje, **abortar** y no descargar; restaurar el botón. (FR-016, SC-011)
+- [X] T022 [P] [US3] Pruebas de integración en `tests/integration/exportar-zip.test.tsx`: (a) sin emitidos → aviso y 0 descargas; (b) el texto de progreso aparece y el botón queda deshabilitado; (c) si `generarPdfBlob` rechaza → mensaje y 0 descargas.
 
 **Checkpoint**: las tres historias funcionan de forma independiente.
 
@@ -103,10 +103,10 @@
 
 **Purpose**: Cierre y verificación transversal.
 
-- [ ] T023 [P] Actualizar la lista de características en `README.md` (mención de «Exportar todo (.zip)»), en es-MX.
-- [ ] T024 Ejecutar la verificación completa: `npm test` (toda la suite) y `npm run build` (typecheck + build) en verde.
-- [ ] T025 Validar manualmente `specs/003-exportar-todo-zip/quickstart.md` (S1–S6) en el navegador vía **MCP de Chrome**; comprobar el `.zip` con `unzip -t`.
-- [ ] T026 Confirmar invariantes: `package.json` **sin** dependencias nuevas y sin importar `fflate`; exportación de solo lectura (SC-006) y estructura plana (SC-012).
+- [X] T023 [P] Actualizar la lista de características en `README.md` (mención de «Exportar todo (.zip)»), en es-MX.
+- [X] T024 Ejecutar la verificación completa: `npm test` (toda la suite) y `npm run build` (typecheck + build) en verde.
+- [X] T025 Validar manualmente `specs/003-exportar-todo-zip/quickstart.md` (S1–S6) en el navegador vía **MCP de Chrome**; comprobar el `.zip` con `unzip -t`.
+- [X] T026 Confirmar invariantes: `package.json` **sin** dependencias nuevas y sin importar `fflate`; exportación de solo lectura (SC-006) y estructura plana (SC-012).
 
 ---
 

@@ -12,6 +12,7 @@ import {
 } from 'react';
 import { backend, BackendError } from './backend';
 import type {
+  Agregado,
   BorradorInput,
   Cliente,
   ClienteInput,
@@ -108,6 +109,8 @@ export interface StoreContextValue {
   emitirPresupuesto: (id: string) => Promise<Presupuesto>;
   cambiarEstadoPresupuesto: (id: string, estado: EstadoCambiable) => Promise<Presupuesto>;
   eliminarPresupuesto: (id: string) => Promise<void>;
+  /** Copia fiel de todos los datos persistidos, para la exportación .zip (solo lectura). */
+  obtenerCopia: () => Promise<Agregado>;
   clientePorId: (id: string) => Cliente | undefined;
   servicioPorId: (id: string) => Servicio | undefined;
 }
@@ -213,6 +216,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     dispatch({ tipo: 'eliminarPresupuesto', id });
   }, []);
 
+  const obtenerCopia = useCallback(() => backend.exportacion.obtenerCopia(), []);
+
   const clientePorId = useCallback(
     (id: string) => estado.clientes.find((c) => c.id === id),
     [estado.clientes],
@@ -251,6 +256,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       emitirPresupuesto,
       cambiarEstadoPresupuesto,
       eliminarPresupuesto,
+      obtenerCopia,
       clientePorId,
       servicioPorId,
     };
@@ -269,6 +275,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     emitirPresupuesto,
     cambiarEstadoPresupuesto,
     eliminarPresupuesto,
+    obtenerCopia,
     clientePorId,
     servicioPorId,
   ]);

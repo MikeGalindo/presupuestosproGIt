@@ -5,7 +5,7 @@
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
-![Vitest](https://img.shields.io/badge/Vitest-51%20tests-6E9F18?logo=vitest&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-70%20tests-6E9F18?logo=vitest&logoColor=white)
 ![Spec--Kit](https://img.shields.io/badge/Spec--Driven-Development-1F6FEB)
 
 PresupuestosPro es una SPA que calcula automáticamente base imponible, IVA (16 %) y retención de ISR opcional (10 %), genera un PDF listo para el cliente y mantiene catálogos de clientes y servicios. Toda la interfaz, el PDF y los mensajes están en **es-MX** con montos en **MXN**.
@@ -42,6 +42,7 @@ PresupuestosPro es una SPA que calcula automáticamente base imponible, IVA (16 
 - 👥 **Catálogos** de clientes y servicios (CRUD completo con confirmación).
 - 📝 **Borradores** sin número, editables, que pasan al historial al emitirse como documentos inmutables.
 - 🔄 **Cinco estados** de presupuesto: Borrador, Enviado, Aceptado, Rechazado y Caducado (calculado).
+- 📦 **Exportar todo (.zip)**: descarga en un único `.zip` (generado en el cliente, sin dependencias) un PDF por presupuesto emitido (`«número - cliente».pdf`) y un archivo de datos completo (`presupuestospro-datos.json`) para una futura restauración.
 - 🇲🇽 **Localización es-MX / MXN** en interfaz, formatos y documento.
 - 
 **URL del proyecto:** [https://mikegalindo.github.io/presupuestosproGIt/](https://mikegalindo.github.io/presupuestosproGIt/)
@@ -97,7 +98,7 @@ src/
 ├── data/        # Mock de backend asíncrono + adaptador localStorage + store (Context/useReducer)
 ├── features/    # profile, clients, services, budgets (editor, borradores, historial, detalle), pdf
 ├── components/  # UI compartida (campos, tabla, estados, diálogo de confirmación)
-├── lib/         # Utilidades: ids (UUID) y fechas (Intl es-MX)
+├── lib/         # Utilidades: ids (UUID), fechas (Intl es-MX), escritor ZIP y nombres de archivo
 └── styles/      # Estilos globales y tokens de diseño
 tests/
 ├── unit/        # Cálculos, numeración, validación, historial/snapshot
@@ -152,10 +153,10 @@ tests/
 npm test
 ```
 
-**51 pruebas en 15 archivos**, todas en verde:
+**70 pruebas en 20 archivos**, todas en verde:
 
-- `tests/unit/` — cálculos de impuestos, numeración, validación, snapshots de historial y formato de fechas.
-- `tests/integration/` — flujos completos de usuario con React Testing Library (emisión + PDF, catálogos, clientes, historial y navegación).
+- `tests/unit/` — cálculos de impuestos, numeración, validación, snapshots de historial, formato de fechas, escritor ZIP, nombres de archivo y la copia exportada.
+- `tests/integration/` — flujos completos de usuario con React Testing Library (emisión + PDF, catálogos, clientes, historial, exportación `.zip` y navegación).
 
 La lógica de negocio se prueba de forma aislada; los flujos de interfaz se verifican de extremo a extremo sobre el DOM real con jsdom.
 
@@ -170,6 +171,7 @@ Este proyecto se desarrolló con **Spec-Driven Development (SDD)** usando [GitHu
 | `.specify/memory/constitution.md` | **Constitución** del proyecto: 9 principios no negociables (simplicidad, es-MX/MXN, cero alcance fantasma, verificabilidad, respeto a datos, stack, «el PDF es el producto»…). |
 | `specs/001-presupuestos-pdf/` | Especificación, plan, tareas, contratos y modelo de datos del producto base. |
 | `specs/002-rediseno-visual-index/` | Rediseño visual, página de inicio y navegación común. |
+| `specs/003-exportar-todo-zip/` | Exportación de todos los presupuestos emitidos en un único `.zip` (PDFs + copia de datos). |
 
 Cada requisito se expresa como escenario **dado / cuando / entonces** y cada escenario de interfaz es comprobable en el navegador.
 
